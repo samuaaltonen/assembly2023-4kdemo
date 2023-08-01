@@ -53,14 +53,20 @@ class Particle {
      * @param c - 2D canvas rendering context
      */
     draw(c) {
-        c.beginPath();
-        c.moveTo(this.trail[0].x, this.trail[0].y);
+        for (let i = 1; i < this.trail.length; i++) {
+            const p1 = this.trail[i - 1];
+            const p2 = this.trail[i];
+            const flowValue = field[Math.floor(p1.y / cellSize) * grid.x + Math.floor(p1.x / cellSize)];
 
-        this.trail.forEach(p => {
-            c.lineTo(p.x, p.y);
-        });
+            const hue = (flowValue / (Math.PI * 2)) * 360; // Map flow value to hue
+            c.strokeStyle = `hsl(${hue}, 100%, 50%)`; // Set stroke style using HSL
+            c.lineWidth = 2; // You can vary this value to change the line thickness
 
-        c.stroke();
+            c.beginPath();
+            c.moveTo(p1.x, p1.y);
+            c.lineTo(p2.x, p2.y);
+            c.stroke();
+        }
     }
 
     /**
@@ -135,7 +141,7 @@ canvas.height = h;
 c.fillStyle = 'hsl(30,100%,50%)';
 c.strokeStyle = 'white';
 c.font = "90px Comic Sans MS";
-c.lineWidth = 1;
+c.lineWidth = 2;
 
 /**
  * Create 420 particles
