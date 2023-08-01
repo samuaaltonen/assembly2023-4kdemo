@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rotating Shapes</title>
+    <style>
+      body,
+      html,
+      canvas {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var numShapes = 30;
+      var angleStep = (Math.PI * 2) / numShapes;
+      var rotationSpeed = 0.01;
+      var angle = 0;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(angle);
+
+        for (var i = 0; i < numShapes; i++) {
+          ctx.fillStyle = "hsl(" + (i / numShapes) * 360 + ", 100%, 50%)";
+          ctx.fillRect(-50, -50, 100, 100);
+          ctx.rotate(angleStep);
+        }
+
+        ctx.restore();
+
+        angle += rotationSpeed;
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
+  </body>
+</html>

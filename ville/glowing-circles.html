@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Growing Circles</title>
+    <style>
+      body,
+      html,
+      canvas {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var circles = [];
+
+      function addCircle() {
+        var radius = Math.random() * 50 + 50;
+        var speed = Math.random() * 0.02 + 0.02;
+        circles.push({ radius: 0, speed: speed });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < circles.length; i++) {
+          var circle = circles[i];
+
+          ctx.beginPath();
+          ctx.arc(
+            canvas.width / 2,
+            canvas.height / 2,
+            circle.radius,
+            0,
+            Math.PI * 2
+          );
+          ctx.lineWidth = 5;
+          ctx.strokeStyle =
+            "hsla(" +
+            (((circle.radius / canvas.width) * 360) % 360) +
+            ", 100%, 50%, 1)";
+          ctx.stroke();
+
+          circle.radius += circle.speed;
+          if (circle.radius > canvas.width) {
+            circles.splice(i, 1);
+            i--;
+          }
+        }
+
+        if (Math.random() < 0.03) {
+          addCircle();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
+  </body>
+</html>

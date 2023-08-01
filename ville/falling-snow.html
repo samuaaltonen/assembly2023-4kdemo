@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Falling Snow</title>
+    <style>
+      body,
+      html,
+      canvas {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var maxFlakes = 200;
+      var flakes = [];
+
+      function addFlake() {
+        var x = Math.random() * canvas.width;
+        var speed = Math.random() * 1 + 0.5;
+        var radius = Math.random() * 2 + 1;
+        flakes.push({ x: x, y: 0, speed: speed, radius: radius });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "white";
+        for (var i = 0; i < flakes.length; i++) {
+          var flake = flakes[i];
+          ctx.beginPath();
+          ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          flake.y += flake.speed;
+          if (flake.y > canvas.height) {
+            flake.y = 0;
+            flake.x = Math.random() * canvas.width;
+          }
+        }
+
+        if (flakes.length < maxFlakes) addFlake();
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
+  </body>
+</html>
