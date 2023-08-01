@@ -18,6 +18,9 @@ const zoom = 0.15;
 const curve = 0.8;
 const grid = new Vector(Math.floor(w / cellSize), Math.floor(h / cellSize));
 
+const rotateCos = Math.cos(Math.PI / 9000);
+const rotateSin = Math.sin(Math.PI / 9000);
+
 /**
  * Particle
  */
@@ -129,9 +132,10 @@ c = canvas.getContext('2d');
 canvas.width = w;
 canvas.height = h;
 
-c.fillStyle = 'red';
-c.strokeStyle = 'red';
-c.lineWidth = 2;
+c.fillStyle = 'hsl(30,100%,50%)';
+c.strokeStyle = 'white';
+c.font = "90px Comic Sans MS";
+c.lineWidth = 1;
 
 /**
  * Create 420 particles
@@ -147,11 +151,20 @@ const play = () => {
     /**
      * Clear the canvas
      */
-    c.clearRect(0, 0, w, h);
+    //c.clearRect(0, 0, w, h);
+
+    c.fillText("Assembly 2023", w / 2 - 300, h / 2);
 
     particles.forEach(p => {
         p.update(field);
         p.draw(c);
+    });
+
+    /**
+     * Rotate flow field vectors randomly
+     */
+    field.forEach((vec, index) => {
+        field[index] += Math.random() * (Math.PI / 90);
     });
 
     requestAnimationFrame(play);
