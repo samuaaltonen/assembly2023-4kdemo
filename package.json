@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "minify": "^10.3.0"
+  }
+}
