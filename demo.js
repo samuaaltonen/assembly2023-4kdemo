@@ -269,7 +269,7 @@ class Particle {
  *
  * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
  */
-let c;
+let ctx;
 
 /**
  * Particles
@@ -293,15 +293,17 @@ for (let y = 0; y <= grid.y; y++) {
 /**
  * Initialize canvas and set to window size
  */
-const canvas = document.getElementById('c');
-c = canvas.getContext('2d');
+
+const canvas = document.createElement('canvas');
+
+ctx = canvas.getContext('2d');
 canvas.width = w;
 canvas.height = h;
 
-c.fillStyle = 'hsl(30,100%,50%)';
-c.strokeStyle = 'white';
-c.font = '90px Comic Sans MS';
-c.lineWidth = 2;
+document.body.appendChild(canvas);
+ctx.strokeStyle = 'white';
+ctx.font = '90px Comic Sans MS';
+ctx.lineWidth = 2;
 
 /**
  * Create 420 particles
@@ -318,14 +320,16 @@ const play = () => {
   /**
    * Clear the canvas
    */
-  c.clearRect(0, 0, w, h);
-
-  c.fillText('Assembly 2023', w / 2 - 300, h / 2);
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, w, h);
 
   particles.forEach((p) => {
     p.update(field);
-    p.draw(c);
+    p.draw(ctx);
   });
+
+  ctx.fillStyle = 'hsl(30,100%,50%)';
+  ctx.fillText('Assembly 2023', w / 2 - 300, h / 2);
 
   /**
    * Rotate flow field vectors randomly
