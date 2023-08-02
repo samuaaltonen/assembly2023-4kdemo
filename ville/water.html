@@ -30,24 +30,24 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         // random number between 0.01 and 0.1
         //var randomNum = Math.random() * (0.1 - 0.01) + 0.01;
-        randomNum = 0.01;
+        randomNum = 0.001;
         // make background change over time slowly
 
         ctx.fillStyle = `rgb(${Math.sin(time * randomNum) * 127 + 128}, ${
-          Math.sin(time * 0.0001) * 127 + 128
+          Math.sin(time * 0.001) * 127 + 128
         }, 100)`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         // draw the wave
         // waveHeight = Math.floor(Math.random() * 20) + 1;
-        waveLength = Math.floor(Math.random() * 50) + 10;
+        waveLength = Math.floor(Math.random() * 50) + 100;
         waveHeight = Math.floor(Math.random() * 50) + 1;
         ctx.beginPath();
         ctx.moveTo(0, canvas.height / 2);
-        for (var x = 0; x <= canvas.width; x += 10) {
+        for (var x = 0; x <= canvas.width; x += 1000000000000) {
           // Add more complexity to the wave by adding more sine functions
           var y =
             waveHeight * Math.sin((x + time) / waveLength) +
-            waveHeight * Math.sin((x + time) / (waveLength / 2)) +
+            waveHeight * Math.sin((x + time) / (waveLength / 100)) +
             canvas.height / 2;
           ctx.lineTo(x, y);
         }
@@ -58,7 +58,7 @@
         //add short waves on top of existing wave
         ctx.beginPath();
         ctx.moveTo(0, canvas.height / 2);
-        for (var x = 0; x <= canvas.width; x += 10) {
+        for (var x = 0; x <= canvas.width; x += 100) {
           var y =
             waveHeight * Math.sin((x + time) / waveLength) +
             waveHeight * Math.sin((x + time) / (waveLength / 2)) +
@@ -89,7 +89,7 @@
         // add short waves on top of existing wave
         ctx.beginPath();
         ctx.moveTo(0, canvas.height / 2);
-        for (var x = 0; x <= canvas.width; x += 10) {
+        for (var x = 0; x <= canvas.width; x += 1) {
           var y =
             waveHeight * Math.sin((x + time) / waveLength) +
             waveHeight * Math.sin((x + time) / (waveLength / 2)) +

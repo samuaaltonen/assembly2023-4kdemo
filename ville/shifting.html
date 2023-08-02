@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lighting Effect with Bitmap Shifting in JS Canvas</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      // Get a reference to the canvas
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      // Set canvas to full window size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var radius = Math.max(canvas.width, canvas.height);
+      var angle = 0;
+
+      // Define a rectangle
+      var rectX = centerX - 50;
+      var rectY = centerY - 25;
+      var rectWidth = 100;
+      var rectHeight = 50;
+
+      // Animation loop
+      function animate() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw a black background
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Calculate new light position
+        var lightX = centerX + (Math.cos(angle) * radius) / 2;
+        var lightY = centerY + (Math.sin(angle) * radius) / 2;
+        angle += 0.01;
+
+        // Create a radial gradient with the light at its center
+        var gradient = ctx.createRadialGradient(
+          lightX,
+          lightY,
+          0,
+          lightX,
+          lightY,
+          radius
+        );
+        gradient.addColorStop(0, "white");
+        gradient.addColorStop(0.05, "yellow");
+        gradient.addColorStop(1, "black");
+
+        // Fill the canvas with the gradient
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Define the shadow properties based on the light source
+        ctx.shadowColor = "white";
+        ctx.shadowBlur = 20;
+        ctx.shadowOffsetX = (rectX - lightX) / 10;
+        ctx.shadowOffsetY = (rectY - lightY) / 10;
+
+        // Draw the rectangle
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; // semi-transparent white
+        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+        // Reset the shadow properties so it won't affect the other drawings
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+
+        // Call the animate function again after 16ms (approximately 60 frames/second)
+        setTimeout(animate, 16);
+      }
+
+      // Start the animation
+      animate();
+    </script>
+  </body>
+</html>
+x
