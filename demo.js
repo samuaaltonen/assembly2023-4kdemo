@@ -218,7 +218,7 @@ class Particle {
             },
         ];
 
-        this.trailLen = Math.floor(30 + Math.random() * 20);
+        this.trailLen = Math.floor(10 + Math.random() * 20);
         this.angle = rotate;
         this.lightness = 12;
     }
@@ -229,10 +229,7 @@ class Particle {
      * @param c - 2D canvas rendering context
      */
     draw(c) {
-        const hue = (this.angle / (Math.PI * 2)) * 360;
-
-        c.strokeStyle = `hsl(${hue}, 100%, ${this.lightness}%)`;
-        c.lineWidth = 2;
+        c.strokeStyle = `hsl(${(this.angle / (Math.PI * 2)) * 360}, 100%, ${this.lightness}%)`;
 
         for (let i = 1; i < this.trail.length; i++) {
             const p1 = this.trail[i - 1];
@@ -307,21 +304,11 @@ let ctx;
 let particles = [];
 
 /**
- * Create flow field grid
- */
-/* for (let y = 0; y <= grid.y; y++) {
-    for (let x = 0; x <= grid.x; x++) {
-        field.push((Math.cos(x * zoom) + Math.sin(y * zoom)) * curve);
-    }
-} */
-
-/**
  * Initialize canvas and set to window size
  */
-
 const canvas = document.createElement('canvas');
 
-ctx = canvas.getContext('2d');
+ctx = canvas.getContext('2d', { willReadFrequently: true });
 canvas.width = w;
 canvas.height = h;
 
@@ -339,26 +326,54 @@ gradient.addColorStop(0.75, 'green');
 gradient.addColorStop(1, 'blue');
 
 ctx.fillStyle = gradient;
-ctx.font = `bold ${h}px Comic Sans MS`;
+ctx.font = `bold ${h}px Arial`;
 ctx.textBaseline = 'middle';
 ctx.textAlign = 'center';
-ctx.fillText('2', w / 2, h / 2 + h / 10);
+
+const texts = ['2', '0', '2', '3', '2023', 'ASSEMBLY', '❤️'];
+let currentText = 0;
 
 /**
- * Calculate flow field vectors so that text affects their value
+ * Updates text to next one.
  */
-const data = ctx.getImageData(0, 0, w, h).data;
-
-for (let y = 0; y < h; y += cellSize) {
-    for (let x = 0; x < w; x += cellSize) {
-        const i = (y * w + x) * 4;
-        const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        field.push(gray / 255 * Math.PI * 2);
+function updateText() {
+    if (currentText === texts.length) {
+        return;
     }
+
+    ctx.fillText(texts[currentText], w / 2, h / 2 + h / 10);
+    currentText++;
 }
 
 /**
- * Create 420 particles
+ * Calculate flow field vectors so that text affects their value.
+ */
+function updateFlowField() {
+    let newField = [];
+
+    const data = ctx.getImageData(0, 0, w, h).data;
+
+    for (let y = 0; y < h; y += cellSize) {
+        for (let x = 0; x < w; x += cellSize) {
+            const i = (y * w + x) * 4;
+            const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
+            newField.push(gray / 255 * Math.PI * 2);
+        }
+    }
+
+    field = newField;
+}
+
+updateText();
+updateFlowField();
+
+setInterval(() => {
+    updateText();
+    updateFlowField();
+}, 6000);
+
+/**
+ * Create 1000 particles
  */
 for (let i = 0; i < 1000; i++) {
     particles.push(new Particle());
