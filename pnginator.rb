@@ -30,7 +30,7 @@ height = scanlines.length
 
 # p01's multiple-pixel-row bootstrap (requires a dummy first byte on the js string)
 # (edit by Gasman: set explicit canvas width to support widths above 300; move drawImage out of getImageData params; change eval to (1,eval) to force global evaluation)
-html = "<head><style type='text/css'>body{margin:0;padding:0;float:left;display:block;position:absolute;top:0;width:100%;height:100%;overflow:hidden;}canvas{margin:0;padding:0;float:left;display:block;position:absolute;top:0;}</style></head><body><canvas id='c' style='display:none;'><img onload=for(w=c.width=#{width},a=c.getContext('2d'),a.drawImage(this,p=0,0),e='',d=a.getImageData(0,0,w,#{height}).data;t=d[p+=4];)e+=String.fromCharCode(t);(1,eval)(e) src=#>"
+html = "<head><style type='text/css'>body{background:'#000';margin:0;padding:0;float:left;display:block;position:absolute;top:0;width:100%;height:100%;overflow:hidden;}canvas{margin:0;padding:0;float:left;display:block;position:absolute;top:0;}</style></head><body><canvas id='c' style='display:none;'><img onload=for(w=c.width=#{width},a=c.getContext('2d'),a.drawImage(this,p=0,0),e='',d=a.getImageData(0,0,w,#{height}).data;t=d[p+=4];)e+=String.fromCharCode(t);(1,eval)(e) src=#>"
 
 
 # prepend each scanline with 0x00 to indicate 'no filtering', then concat into one string

@@ -390,8 +390,7 @@ const play = () => {
     /**
      * Clear the canvas
      */
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, w, h);
+    ctx.clearRect(0, 0, w, h);
 
     particles.forEach((p) => {
         p.update(field);
