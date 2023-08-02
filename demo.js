@@ -334,7 +334,7 @@ ctx.font = `bold ${h}px Arial`;
 ctx.textBaseline = 'middle';
 ctx.textAlign = 'center';
 
-const texts = ['2', '0', '2', '3', '2023', 'ASSEMBLY', '❤️'];
+const texts = ['2', '0', '2', '3', '2023', 'ASSEMBLY', String.fromCodePoint(0x2764)];
 let currentText = 0;
 
 /**
