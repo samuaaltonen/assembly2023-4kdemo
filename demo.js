@@ -229,7 +229,12 @@ class Particle {
      * @param c - 2D canvas rendering context
      */
     draw(c) {
-        c.strokeStyle = `hsl(${(this.angle / (Math.PI * 2)) * 360}, 100%, ${this.lightness}%)`;
+        /**
+         * Set hue to red if last text (heart), otherwise get the hue from the angle.
+         */
+        const hue = currentText === texts.length ? 0 : (this.angle / (Math.PI * 2)) * 360;
+
+        c.strokeStyle = `hsl(${hue}, 100%, ${this.lightness}%)`;
 
         for (let i = 1; i < this.trail.length; i++) {
             const p1 = this.trail[i - 1];
@@ -341,7 +346,7 @@ function updateText() {
         return;
     }
 
-    ctx.fillText(texts[currentText], w / 2, h / 2 + h / 10);
+    ctx.fillText(texts[currentText], w / 2, h / 2 + h / 10, w);
     currentText++;
 }
 
