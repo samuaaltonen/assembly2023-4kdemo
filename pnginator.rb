@@ -30,14 +30,29 @@ height = scanlines.length
 
 # p01's multiple-pixel-row bootstrap (requires a dummy first byte on the js string)
 # (edit by Gasman: set explicit canvas width to support widths above 300; move drawImage out of getImageData params; change eval to (1,eval) to force global evaluation)
-html = "<head><style type='text/css'>body{background:#000;margin:0;padding:0;}canvas{position:absolute;right:0;bottom:0;animation: bounce 0.6s infinite ease-in-out;}
+html = "<head><style type='text/css'>body{background:#000;margin:0;padding:0;overflow:hidden;width:100%;height:100%}canvas{position:absolute;right:0;bottom:0;animation: bounce 2s infinite ease-in-out;}
 
 @keyframes bounce {
   0% {
-    transform: scale(1);
+    transform: scale(1) rotate(0);
   }
-  50% {
-    transform: scale(0.9);
+  15% {
+    transform: scale(0.94);
+  }
+  30% {
+    transform: scale(0.94) rotate(2deg);
+  }
+  45% {
+    transform: scale(1) rotate(0);
+  }
+  60% {
+    transform: scale(0.94);
+  }
+  75% {
+    transform: scale(1) rotate(-2deg);
+  }
+  90% {
+    transform: scale(0.94) rotate(0);
   }
   100% {
     transform: scale(1);
@@ -73,7 +88,7 @@ if USE_PNGOUT
         while !f.eof?
             length, signature = f.read(8).unpack("NA4")
             data = f.read(length)
-            crc = f.read(4)
+            f.read(4)
 
             if signature == "IDAT"
                 idat_chunk = data
