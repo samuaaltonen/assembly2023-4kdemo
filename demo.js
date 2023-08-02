@@ -194,7 +194,7 @@ class Particle {
      * Initialize trail array (particle position history)
      */
     reset() {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 20; i++) {
             this.pos = new Vector(
                 Math.floor(Math.random() * w),
                 Math.floor(Math.random() * h)
@@ -217,7 +217,7 @@ class Particle {
             },
         ];
 
-        this.trailLen = Math.floor(10 + Math.random() * 20);
+        this.trailLen = Math.floor(10 + Math.random() * 10);
         this.angle = rotate;
         this.lightness = 12;
     }
@@ -272,7 +272,7 @@ class Particle {
         /**
          * Make particle brighter if inside flow current
          */
-        this.lightness = flow ? 60 : 12;
+        this.lightness = flow ? 70 : 12;
 
         if (this.angle > flow) {
             this.angle -= this.curve;
@@ -345,7 +345,8 @@ function updateText() {
         return;
     }
 
-    ctx.fillText(texts[currentText], w / 2, h / 2 + h / 10, w);
+    console.log(texts[currentText]);
+    ctx.fillText(texts[currentText], w / 2, h / 2, w);
     currentText++;
 }
 
@@ -379,7 +380,7 @@ setInterval(() => {
 /**
  * Create 1000 particles
  */
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 1500; i++) {
     particles.push(new Particle());
 }
 
@@ -400,7 +401,7 @@ const play = () => {
     /**
      * Add rotation
      */
-    rotate += Math.PI / 360;
+    rotate += Math.PI / 180;
 
     requestAnimationFrame(play);
 };
