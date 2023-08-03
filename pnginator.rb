@@ -30,7 +30,7 @@ height = scanlines.length
 
 # p01's multiple-pixel-row bootstrap (requires a dummy first byte on the js string)
 # (edit by Gasman: set explicit canvas width to support widths above 300; move drawImage out of getImageData params; change eval to (1,eval) to force global evaluation)
-html = "<head><style type='text/css'>body{background:#000 linear-gradient(0, rgba(27,1,22,1) 0%, rgba(6,3,13,1) 72%, rgba(13,0,25,1) 100%);margin:0;padding:0;overflow:hidden;width:100%;height:100%}canvas{position:absolute;right:0;bottom:0;opacity:1;animation: bounce 2s infinite ease-in-out;transition: opacity 2s ease-in-out;}.fade{opacity:0}
+html = "<head><style type='text/css'>body{background:#000 linear-gradient(0, rgba(27,1,22,1) 0%, rgba(6,3,13,1) 72%, rgba(13,0,25,1) 100%);margin:0;padding:0;overflow:hidden;width:100%;height:100%;cursor:pointer}canvas{position:absolute;right:0;bottom:0;opacity:1;animation: bounce 2s infinite ease-in-out;transition: opacity 2s ease-in-out;}.fade{opacity:0}
 
 @keyframes bounce {
   0% {
