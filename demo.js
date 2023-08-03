@@ -242,6 +242,7 @@ let currentText = 0;
  */
 function updateText() {
   if (currentText === texts.length) {
+    canvas.classList.add('fade');
     return;
   }
 
