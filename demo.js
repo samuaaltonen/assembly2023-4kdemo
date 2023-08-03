@@ -245,7 +245,7 @@ function updateText() {
     return;
   }
 
-  ctx.fillText(texts[currentText], w / 2, h / 2 + h / 10, w);
+  ctx.fillText(texts[currentText], w / 2, h / 2, w);
   currentText++;
 }
 
