@@ -57,6 +57,7 @@ const songData = [[[.4,0,4e3,,,.03,2,1.25,,,,,.02,6.8],[,0,655,,,.11,2,1.65,,,,,
  * Constants. Calculate width and height so that they can be
  * divided by cellSize evenly.
  */
+const s = document.createElement('p');
 const cS = 20;
 const w = Math.floor(window.innerWidth / cS) * cS;
 const h = Math.floor(window.innerHeight / cS) * cS;
@@ -257,6 +258,9 @@ function demo() {
   function updateText() {
     if (cT === texts.length) {
       canvas.classList.add('fade');
+      s.textContent = 'THANK YOU';
+      s.setAttribute('style', `display:block;transform:scaleY(${(h / 100).toFixed(1)});margin-top:${Math.floor(h * 0.35)}px`);
+      cT++;
       return;
     }
 
@@ -322,15 +326,11 @@ function demo() {
   play();
 }
 
-const clickTrigger = document.createElement('p');
-clickTrigger.textContent = 'Click to start';
-clickTrigger.setAttribute(
-  'style',
-  'color:#FFF;text-align:center;font-size:100px;text-transform:uppercase;font-weight:bold;pointer-events:none;'
-);
+s.textContent = 'CLICK TO START';
 
 document.body.addEventListener('click', () => {
-  clickTrigger.remove();
+  s.style.display = 'none';
   demo();
 });
-document.body.appendChild(clickTrigger);
+
+document.body.appendChild(s);
