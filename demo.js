@@ -73,6 +73,7 @@ const texts = [
   '3',
   '2023',
   'ASSEMBLY',
+  'ASSEMBLY',
   String.fromCodePoint(0x2764),
 ];
 let cT = 0;
