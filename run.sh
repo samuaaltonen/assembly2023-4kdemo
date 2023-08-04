@@ -38,11 +38,11 @@ else
   FILE="demo.uglify.js"
 fi
 
-ruby pnginator.rb $FILE demo.pnginator.html
+ruby pnginator.rb $FILE demo.flowchaos.html
 
-echo -e "\n${GREEN}Pnginator finished! New file size is $(stat --printf="%s" demo.pnginator.html )$ENDCOLOR"
+echo -e "\n${GREEN}Pnginator finished! New file size is $(stat --printf="%s" demo.flowchaos.html )$ENDCOLOR"
 
-PATH=$(pwd)/demo.pnginator.html
+PATH=$(pwd)/demo.flowchaos.html
 
 echo -e "Current path: ${RED}${PATH/'/mnt/c'/'C:'}$ENDCOLOR"
 
