@@ -180,15 +180,7 @@ class Particle {
   }
 }
 
-let demoStarted = false;
-
 function demo() {
-  if (demoStarted) {
-    return;
-  }
-
-  demoStarted = true;
-
   /**
    * Play music
    */
@@ -241,17 +233,12 @@ function demo() {
     if (cT === texts.length) {
       canvas.classList.add('fade');
       s.textContent = 'THANK YOU';
-      s.setAttribute(
-        'style',
-        `display:block;transform:scaleY(${(h / 100).toFixed(
-          1
-        )});margin-top:${Math.floor(h * 0.35)}px`
-      );
+      s.setAttribute('style', `display:flex;transform:scaleY(${(h / 100).toFixed(1)})`);
       cT++;
       return;
     }
 
-    ctx.fillText(texts[cT], w / 2, h / 2, w);
+    ctx.fillText(texts[cT], w / 2, h / 1.92, w);
     cT++;
   }
 
@@ -315,9 +302,12 @@ function demo() {
 
 s.textContent = 'CLICK TO START';
 
-document.body.addEventListener('click', () => {
+const cl = () => {
   s.style.display = 'none';
   demo();
-});
+  document.body.removeEventListener('click', cl);
+};
+
+document.body.addEventListener('click', cl);
 
 document.body.appendChild(s);
