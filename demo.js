@@ -231,9 +231,12 @@ function demo() {
    */
   function updateText() {
     if (cT === texts.length) {
-      canvas.classList.add('fade');
+      canvas.classList.add('f');
       s.textContent = 'THANK YOU';
-      s.setAttribute('style', `display:flex;transform:scaleY(${(h / 100).toFixed(1)})`);
+      s.setAttribute(
+        'style',
+        `display:flex;transform:scaleY(${(h / 100).toFixed(1)})`
+      );
       cT++;
       return;
     }
